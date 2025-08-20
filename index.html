@@ -8,26 +8,22 @@
   *{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif;}
   body{background:#f9f9f9;color:#333;transition:0.3s;}
   header{background:#1e90ff;color:#fff;padding:15px;text-align:center;}
-  nav{display:flex;justify-content:center;gap:15px;margin:10px 0;flex-wrap:wrap;}
+  nav{display:flex;justify-content:center;gap:10px;margin:10px 0;flex-wrap:wrap;}
   nav button{padding:8px 15px;border:none;border-radius:5px;cursor:pointer;transition:0.2s;}
   nav button:hover{background:#0077cc;color:#fff;}
   .dark header{background:#111;color:#fff;}
   .dark body{background:#222;color:#eee;}
   .container{padding:20px;max-width:1200px;margin:auto;}
   h1,h2,h3{margin-bottom:10px;}
-  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:15px;margin-top:20px;}
-  .card{background:#fff;padding:10px;border-radius:10px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.1);transition:0.3s;}
-  .card img{width:100%;border-radius:50%;}
-  .card h3{margin:10px 0 5px;}
-  .card p{font-size:14px;color:#555;}
-  .dark .card{background:#333;color:#eee;box-shadow:0 2px 8px rgba(255,255,255,0.1);}
-  .lang-switch{position:fixed;top:10px;right:10px;}
-  .dark-mode{position:fixed;top:50px;right:10px;cursor:pointer;padding:5px 10px;background:#1e90ff;color:#fff;border-radius:5px;}
   form{display:flex;flex-direction:column;max-width:300px;margin-top:10px;}
   form label{margin-top:10px;margin-bottom:5px;}
   form input, form select, form button{padding:8px;margin-bottom:10px;border-radius:5px;border:1px solid #ccc;}
   form button{background:#1e90ff;color:#fff;border:none;cursor:pointer;}
   form button:hover{background:#0077cc;}
+  .lang-switch{position:fixed;top:10px;right:10px;}
+  .dark-mode{position:fixed;top:50px;right:10px;cursor:pointer;padding:5px 10px;background:#1e90ff;color:#fff;border-radius:5px;}
+  .game-box{margin-top:20px;}
+  .game-box button{margin-right:10px;margin-bottom:10px;}
 </style>
 </head>
 <body>
@@ -46,12 +42,10 @@
 
 <nav>
   <button onclick="showSection('home')">Home</button>
-  <button onclick="showSection('users')">Users</button>
-  <button onclick="showSection('about')">About</button>
-  <button onclick="showSection('contact')">Contact</button>
-  <button onclick="showSection('payment')">Deposit</button>
   <button onclick="showSection('register')">Register</button>
   <button onclick="showSection('login')">Login</button>
+  <button onclick="showSection('deposit')">Deposit</button>
+  <button onclick="showSection('casino')">Casino Demo</button>
 </nav>
 
 <div class="container">
@@ -59,39 +53,6 @@
   <section id="home">
     <h2 data-ku="دەستپێک" data-ar="الصفحة الرئيسية" data-en="Home">Home</h2>
     <p data-ku="خۆشحاڵ بۆ بینینی Akam Bet" data-ar="مرحباً بك في Akam Bet" data-en="Welcome to Akam Bet">Welcome to Akam Bet</p>
-  </section>
-
-  <section id="users" style="display:none;">
-    <h2 data-ku="بەشەکانی کاربەر" data-ar="المستخدمون" data-en="Users">Users</h2>
-    <div class="cards"></div>
-  </section>
-
-  <section id="about" style="display:none;">
-    <h2 data-ku="دەربارەی" data-ar="حول" data-en="About">About</h2>
-    <p data-ku="Akam Bet وێبسایتی بەرزکردنەوەی هەموو یاری و کاربەرەکانە." 
-       data-ar="Akam Bet هو موقع ويب لتشغيل الألعاب وإدارة المستخدمين." 
-       data-en="Akam Bet is a website for games and user management.">
-       Akam Bet is a website for games and user management.
-    </p>
-  </section>
-
-  <section id="contact" style="display:none;">
-    <h2 data-ku="پەیوەندی" data-ar="اتصال" data-en="Contact">Contact</h2>
-    <p data-ku="ئیمەیل: info@akambet.com" data-ar="البريد الإلكتروني: info@akambet.com" data-en="Email: info@akambet.com">Email: info@akambet.com</p>
-  </section>
-
-  <section id="payment" style="display:none;">
-    <h2 data-ku="داخلکردنی پارە" data-ar="إيداع الأموال" data-en="Deposit Money">Deposit Money</h2>
-    <form id="paymentForm">
-      <label data-ku="بڕ" data-ar="المبلغ" data-en="Amount">Amount:</label>
-      <input type="number" id="amount" required placeholder="100">
-      <label data-ku="پارە" data-ar="العملة" data-en="Currency">Currency:</label>
-      <select id="currency">
-        <option value="FIB">FIB</option>
-      </select>
-      <button type="submit" data-ku="ناردن" data-ar="إرسال" data-en="Submit">Submit</button>
-    </form>
-    <p id="paymentResult"></p>
   </section>
 
   <section id="register" style="display:none;">
@@ -122,31 +83,118 @@
     <p id="loginResult"></p>
   </section>
 
+  <section id="deposit" style="display:none;">
+    <h2 data-ku="داخلکردنی پارە" data-ar="إيداع الأموال" data-en="Deposit Money">Deposit Money</h2>
+    <form id="depositForm">
+      <label data-ku="بڕ" data-ar="المبلغ" data-en="Amount">Amount:</label>
+      <input type="number" id="depositAmount" required placeholder="100">
+      <button type="submit" data-ku="ناردن" data-ar="إرسال" data-en="Submit">Submit</button>
+    </form>
+    <p id="depositResult"></p>
+    <p id="balance">Balance: 0 FIB</p>
+  </section>
+
+  <section id="casino" style="display:none;">
+    <h2 data-ku="یاریەکانی گازینۆ" data-ar="ألعاب الكازينو" data-en="Casino Games">Casino Games</h2>
+    <div class="game-box">
+      <button onclick="playDice()">🎲 Dice</button>
+      <button onclick="playRoulette()">🎡 Roulette</button>
+    </div>
+    <p id="gameResult"></p>
+  </section>
+
 </div>
 
 <script>
-  // ----- Dark Mode -----
-  function toggleDark(){document.body.classList.toggle('dark');}
+// Dark mode
+let dark=false;
+function toggleDark(){document.body.classList.toggle('dark');dark=!dark;}
 
-  // ----- Language Switch -----
-  const langSelect = document.getElementById('language');
-  langSelect.addEventListener('change',()=>{updateLanguage(langSelect.value);});
-  function updateLanguage(lang){
-    document.querySelectorAll('[data-ku]').forEach(el=>{
-      el.textContent = el.getAttribute('data-'+lang);
-    });
-  }
+// Language
+const langSelect = document.getElementById('language');
+langSelect.addEventListener('change',()=>{updateLang(langSelect.value);});
+function updateLang(lang){
+  document.querySelectorAll('[data-ku]').forEach(el=>{
+    el.textContent = el.getAttribute('data-'+lang);
+  });
+}
 
-  // ----- Sections -----
-  function showSection(id){
-    document.querySelectorAll('section').forEach(s=>s.style.display='none');
-    document.getElementById(id).style.display='block';
-  }
+// Section navigation
+function showSection(id){
+  document.querySelectorAll('section').forEach(s=>s.style.display='none');
+  document.getElementById(id).style.display='block';
+}
 
-  // ----- Users Cards -----
-  const users = [
-    {name:"Ali", img:"https://via.placeholder.com/150", role:"Player"},
-    {name:"Sara", img:"https://via.placeholder.com/150", role:"Player"},
-    {name:"Karim", img:"https://via.placeholder.com/150", role:"Admin"},
-  ];
-  const container =
+// Users & LocalStorage
+let users=JSON.parse(localStorage.getItem('users')||'[]');
+let currentUser=JSON.parse(localStorage.getItem('currentUser')||'null');
+let balance=JSON.parse(localStorage.getItem('balance')||'0');
+document.getElementById('balance').innerText='Balance: '+balance+' FIB';
+
+// Register
+document.getElementById('registerForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  let u=document.getElementById('username').value.trim();
+  let em=document.getElementById('email').value.trim();
+  let p=document.getElementById('password').value;
+  let cp=document.getElementById('confirmPassword').value;
+  const res=document.getElementById('registerResult');
+  if(p!==cp){res.textContent="Passwords do not match!";return;}
+  if(users.find(x=>x.username===u)){res.textContent="Username already exists!";return;}
+  users.push({username:u,email:em,password:p});
+  localStorage.setItem('users',JSON.stringify(users));
+  res.textContent="Account created successfully!";
+  this.reset();
+});
+
+// Login
+document.getElementById('loginForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  let u=document.getElementById('loginUsername').value.trim();
+  let p=document.getElementById('loginPassword').value;
+  const res=document.getElementById('loginResult');
+  const user=users.find(x=>x.username===u && x.password===p);
+  if(!user){res.textContent="Invalid username or password!";return;}
+  currentUser=user.username;
+  localStorage.setItem('currentUser',JSON.stringify(currentUser));
+  res.textContent="Login successful! Welcome "+currentUser;
+});
+
+// Deposit
+document.getElementById('depositForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  if(!currentUser){alert("Login first!"); return;}
+  let amt=parseInt(document.getElementById('depositAmount').value);
+  if(amt<=0){alert("Invalid amount");return;}
+  balance+=amt;
+  localStorage.setItem('balance',JSON.stringify(balance));
+  document.getElementById('balance').innerText='Balance: '+balance+' FIB';
+  document.getElementById('depositResult').textContent='Deposit successful!';
+  this.reset();
+});
+
+// Casino Games
+function playDice(){
+  if(balance<=0){alert("No balance!");return;}
+  let bet=Math.floor(Math.random()*balance)+1;
+  let dice=Math.floor(Math.random()*6)+1;
+  let result=Math.random()<0.5?'won':'lost';
+  if(result==='won'){balance+=bet;}else{balance-=bet;}
+  localStorage.setItem('balance',JSON.stringify(balance));
+  document.getElementById('balance').innerText='Balance: '+balance+' FIB';
+  document.getElementById('gameResult').textContent=`Dice rolled ${dice}. You ${result} ${bet} FIB!`;
+}
+
+function playRoulette(){
+  if(balance<=0){alert("No balance!");return;}
+  let bet=Math.floor(Math.random()*balance)+1;
+  let number=Math.floor(Math.random()*36);
+  let result=Math.random()<0.5?'won':'lost';
+  if(result==='won'){balance+=bet*2;}else{balance-=bet;}
+  localStorage.setItem('balance',JSON.stringify(balance));
+  document.getElementById('balance').innerText='Balance: '+balance+' FIB';
+  document.getElementById('gameResult').textContent=`Roulette number ${number}. You ${result} ${result==='won'?bet*2:bet} FIB!`;
+}
+</script>
+</body>
+</html>
