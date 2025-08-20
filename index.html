@@ -99,8 +99,12 @@
     <div class="game-box">
       <button onclick="playDice()">🎲 Dice</button>
       <button onclick="playRoulette()">🎡 Roulette</button>
+      <button onclick="playJohnHunter()">📖 John Hunter Demo</button>
     </div>
     <p id="gameResult"></p>
+    <div id="johnHunterGame" style="margin-top:15px; display:none;">
+      <iframe id="johnHunterFrame" src="" width="100%" height="600px"></iframe>
+    </div>
   </section>
 
 </div>
@@ -176,24 +180,29 @@ document.getElementById('depositForm').addEventListener('submit',function(e){
 // Casino Games
 function playDice(){
   if(balance<=0){alert("No balance!");return;}
-  let bet=Math.floor(Math.random()*balance)+1;
+  let bet=Math.min(10,balance); // simple bet
   let dice=Math.floor(Math.random()*6)+1;
-  let result=Math.random()<0.5?'won':'lost';
-  if(result==='won'){balance+=bet;}else{balance-=bet;}
+  let win=dice>3;
+  balance += win ? bet : -bet;
   localStorage.setItem('balance',JSON.stringify(balance));
   document.getElementById('balance').innerText='Balance: '+balance+' FIB';
-  document.getElementById('gameResult').textContent=`Dice rolled ${dice}. You ${result} ${bet} FIB!`;
+  document.getElementById('gameResult').textContent=`Dice: ${dice}, You ${win?'won':'lost'} ${bet} FIB`;
 }
 
 function playRoulette(){
   if(balance<=0){alert("No balance!");return;}
-  let bet=Math.floor(Math.random()*balance)+1;
+  let bet=Math.min(10,balance);
   let number=Math.floor(Math.random()*36);
-  let result=Math.random()<0.5?'won':'lost';
-  if(result==='won'){balance+=bet*2;}else{balance-=bet;}
+  let win=number%2===0;
+  balance += win ? bet : -bet;
   localStorage.setItem('balance',JSON.stringify(balance));
   document.getElementById('balance').innerText='Balance: '+balance+' FIB';
-  document.getElementById('gameResult').textContent=`Roulette number ${number}. You ${result} ${result==='won'?bet*2:bet} FIB!`;
+  document.getElementById('gameResult').textContent=`Roulette: ${number}, You ${win?'won':'lost'} ${bet} FIB`;
+}
+
+function playJohnHunter(){
+  document.getElementById('johnHunterGame').style.display='block';
+  document.getElementById('johnHunterFrame').src='https://example.com/john-hunter-demo';
 }
 </script>
 </body>
