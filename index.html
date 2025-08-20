@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="ku">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akam Bet</title>
+  <style>
+    :root {
+      --bg: #f5f5f5;
+      --text: #111;
+      --primary: #ffcc00;
+      --secondary: #222;
+    }
+    [data-theme="dark"] {
+      --bg: #111;
+      --text: #f5f5f5;
+      --primary: #28a745;
+      --secondary: #333;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: 0.3s;
+    }
+    header {
+      background: var(--secondary);
+      color: var(--text);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      font-size: 20px;
+      margin: 0;
+      color: var(--primary);
+    }
+    nav {
+      background: var(--secondary);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 12px 20px;
+      display: block;
+    }
+    nav a:hover {
+      background: var(--primary);
+      color: #111;
+    }
+    .controls button {
+      margin-left: 8px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    main { padding: 20px; }
+    .banner {
+      background: url('https://via.placeholder.com/1200x400/111/fff?text=Akam+Bet+Banner') no-repeat center;
+      background-size: cover;
+      height: 200px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 15px;
+      text-align: center;
+    }
+    [data-theme="dark"] .card { background: #222; color: #eee; }
+    .card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    footer {
+      background: var(--secondary);
+      color: #aaa;
+      text-align: center;
+      padding: 15px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Akam Bet</h1>
+    <div class="controls">
+      <button onclick="switchTheme()">🌓</button>
+      <button onclick="setLang('ku')">KU</button>
+      <button onclick="setLang('ar')">AR</button>
+      <button onclick="setLang('en')">EN</button>
+    </div>
+  </header>  <nav>
+    <a href="#" data-i18n="sports">Sports</a>
+    <a href="#" data-i18n="live">Live</a>
+    <a href="#" data-i18n="casino">Casino</a>
+    <a href="#" data-i18n="slots">Slots</a>
+    <a href="#" data-i18n="bonus">Bonus</a>
+    <a href="#" data-i18n="about">About</a>
+    <a href="#" data-i18n="contact">Contact</a>
+  </nav>  <main>
+    <div class="banner"></div>
+    <h2 data-i18n="featured">یاریە پەسەندکراوەکان</h2>
+    <div class="cards">
+      <div class="card">
+        <img src="https://via.placeholder.com/300x180" alt="Game 1">
+        <h3>Game 1</h3>
+      </div>
+      <div class="card">
+        <img src="https://via.placeholder.com/300x180" alt="Game 2">
+        <h3>Game 2</h3>
+      </div>
+      <div class="card">
+        <img src="https://via.placeholder.com/300x180" alt="Game 3">
+        <h3>Game 3</h3>
+      </div>
+    </div>
+  </main>  <footer>
+    <p>© 2025 Akam Bet</p>
+  </footer><script>
+  const dict = {
+    ku: {
+      sports: 'وەرزشی', live: 'ڕاستەوخۆ', casino: 'کازینۆ', slots: 'سلۆتس', bonus: 'بونوس', about: 'دەربارە', contact: 'پەیوەندی', featured: 'یاریە پەسەندکراوەکان'
+    },
+    ar: {
+      sports: 'رياضة', live: 'مباشر', casino: 'كازينو', slots: 'سلوتس', bonus: 'مكافأة', about: 'حول', contact: 'اتصال', featured: 'الألعاب المميزة'
+    },
+    en: {
+      sports: 'Sports', live: 'Live', casino: 'Casino', slots: 'Slots', bonus: 'Bonus', about: 'About', contact: 'Contact', featured: 'Featured Games'
+    }
+  };
+  function setLang(lang) {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      el.innerText = dict[lang][el.getAttribute('data-i18n')];
+    });
+  }
+  function switchTheme() {
+    const body = document.body;
+    if (body.getAttribute('data-theme') === 'dark') {
+      body.setAttribute('data-theme','light');
+    } else {
+      body.setAttribute('data-theme','dark');
+    }
+  }
+</script></body>
+</html>
